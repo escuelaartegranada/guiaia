@@ -4,32 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dossier Maestro: Implantación IA y Big Data</title>
-    <!-- Google Fonts para tipografía moderna -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts para tipografía moderna y Serif oficial -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             /* Paleta de Colores Corporativa Moderna */
-            --primary-dark: #0f172a;       /* Slate 900 - Sidebar & Textos fuertes */
-            --primary-light: #1e293b;      /* Slate 800 - Hover sidebar */
-            --brand-color: #3b82f6;        /* Blue 500 - Acciones principales */
-            --brand-hover: #2563eb;        /* Blue 600 - Hover acciones */
-            --accent-warning: #f59e0b;     /* Amber 500 - Alertas */
-            --accent-bg: #fff7ed;          /* Fondo alertas */
+            --primary-dark: #0f172a;       /* Slate 900 */
+            --primary-light: #334155;      /* Slate 700 */
+            --brand-color: #2563eb;        /* Blue 600 */
+            --brand-hover: #1d4ed8;        /* Blue 700 */
+            --accent-warning: #d97706;     /* Amber 600 */
+            --accent-bg: #fffbeb;          /* Amber 50 */
             
-            --bg-body: #f8fafc;            /* Slate 50 - Fondo general */
-            --bg-card: #ffffff;            /* Blanco puro - Tarjetas */
+            --bg-body: #f1f5f9;            /* Slate 100 */
+            --bg-card: #ffffff;            
             
-            --text-main: #334155;          /* Slate 700 */
+            --text-main: #1e293b;          /* Slate 800 */
             --text-muted: #64748b;         /* Slate 500 */
             
-            --border-color: #e2e8f0;       /* Slate 200 */
+            --border-color: #cbd5e1;       /* Slate 300 */
             
             /* Efectos */
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --shadow-paper: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
             --radius: 12px;
-            --transition: all 0.3s ease;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { box-sizing: border-box; }
@@ -73,6 +73,8 @@
             align-items: center;
             gap: 12px;
             letter-spacing: -0.5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
         }
         
         .logo span { color: var(--brand-color); }
@@ -94,7 +96,7 @@
         }
 
         .nav-link:hover {
-            background: var(--primary-light);
+            background: rgba(255,255,255,0.05);
             color: white;
             transform: translateX(5px);
         }
@@ -102,12 +104,12 @@
         .nav-link.active {
             background: var(--brand-color);
             color: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
         .print-btn {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
             color: white;
             padding: 14px;
             border-radius: var(--radius);
@@ -121,20 +123,18 @@
             transition: var(--transition);
             margin-top: auto;
         }
-        .print-btn:hover { background: rgba(255,255,255,0.15); }
+        .print-btn:hover { background: rgba(255,255,255,0.1); border-color: white; }
 
         /* --- CONTENIDO --- */
         .content {
             flex: 1;
             margin-left: 280px;
             padding: 60px;
-            max-width: 1400px; /* Ancho amplio para pantallas modernas */
+            max-width: 1400px;
         }
 
         .page-header {
             margin-bottom: 50px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
         }
         .page-header h1 {
             color: var(--primary-dark);
@@ -160,11 +160,6 @@
             transition: var(--transition);
         }
 
-        section:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-
         h2 {
             color: var(--primary-dark);
             font-size: 1.5rem;
@@ -174,6 +169,7 @@
             align-items: center;
             gap: 12px;
             font-weight: 700;
+            font-family: 'Playfair Display', serif;
         }
         
         h2::before {
@@ -204,7 +200,7 @@
         
         details[open] {
             border-color: var(--brand-color);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
 
         details summary {
@@ -247,26 +243,26 @@
 
         .info-box {
             background: #eff6ff;
-            border: 1px solid #dbeafe;
-            color: #1e40af;
+            border: 1px solid #bfdbfe;
+            color: #1e3a8a;
         }
         .info-box::before { content: 'ℹ️'; font-size: 1.2rem; }
 
         .warning-box {
             background: var(--accent-bg);
-            border: 1px solid #fed7aa;
-            color: #9a3412;
+            border: 1px solid #fcd34d;
+            color: #92400e;
         }
         .warning-box::before { content: '⚠️'; font-size: 1.2rem; }
 
         /* --- LISTAS --- */
         .checklist { padding: 0; list-style: none; }
         .checklist li {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             padding-left: 0;
             display: flex;
             align-items: flex-start;
-            gap: 12px;
+            gap: 15px;
         }
         
         /* --- TABLAS MODERNAS --- */
@@ -281,82 +277,177 @@
         }
         
         th {
-            background: #f1f5f9;
+            background: #f8fafc;
             text-align: left;
             padding: 16px;
             color: var(--primary-dark);
             font-weight: 600;
             border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         td {
             padding: 16px;
             border-bottom: 1px solid var(--border-color);
             background: white;
-            vertical-align: top;
+            vertical-align: middle;
+            font-size: 0.95rem;
         }
         
         tr:last-child td { border-bottom: none; }
         tr:hover td { background: #f8fafc; }
 
-        /* --- SIMULACIÓN DE DOCUMENTO (A4) --- */
+        /* --- SIMULACIÓN DE DOCUMENTO (A4) MEJORADA --- */
         .paper-container {
-            background: #e2e8f0; /* Color escritorio */
-            padding: 40px;
+            background: #e2e8f0;
+            padding: 50px;
             border-radius: var(--radius);
             display: flex;
             flex-direction: column;
             align-items: center;
+            border: 1px solid #cbd5e1;
         }
 
         .doc-template {
-            width: 100%;
-            max-width: 21cm; /* Ancho A4 */
-            min-height: 29.7cm; /* Alto A4 aprox */
-            font-family: 'Times New Roman', serif;
+            width: 21cm;
+            min-height: 29.7cm;
             background: #fff;
             padding: 2.5cm;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            line-height: 1.8;
-            color: black;
+            box-shadow: var(--shadow-paper);
+            color: #111;
             position: relative;
-            font-size: 11pt;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            font-family: 'Lora', serif; /* Tipografía Serif más elegante */
         }
         
-        .doc-header { text-align: right; font-weight: bold; margin-bottom: 40px; text-transform: uppercase; font-size: 10pt; }
-        .doc-title { text-align: center; font-weight: bold; text-decoration: underline; margin-bottom: 40px; font-size: 14pt; }
-        .doc-body { text-align: justify; margin-bottom: 40px; }
+        /* Marca de agua sutil o borde decorativo opcional */
+        .doc-template::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 10px;
+            background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
+        }
+
+        .official-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 20px;
+        }
+
+        .official-header img { height: 60px; opacity: 0.8; }
+        .official-header .gov-text { text-align: right; font-size: 9pt; color: #444; text-transform: uppercase; font-weight: bold; }
+
+        .doc-ref {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            margin-bottom: 30px;
+            color: #444;
+        }
+
+        .doc-title { 
+            text-align: center; 
+            font-weight: 700; 
+            margin-bottom: 40px; 
+            font-size: 14pt; 
+            line-height: 1.4;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .doc-body { 
+            text-align: justify; 
+            margin-bottom: 40px; 
+            font-size: 11pt;
+            line-height: 1.8;
+        }
+        
         .doc-body p { margin-bottom: 15px; }
-        .doc-footer { margin-top: 60px; text-align: center; }
+        
+        .doc-body ul, .doc-body ol {
+            margin: 15px 0 15px 25px;
+            padding-left: 10px;
+        }
+        
+        .doc-body li { margin-bottom: 8px; }
+
+        .doc-footer { 
+            margin-top: 80px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .signature-box {
+            width: 300px;
+            height: 120px;
+            border-bottom: 1px solid #000;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .signature-label { font-size: 10pt; font-weight: bold; }
+
+        .stamp-placeholder {
+            width: 120px;
+            height: 120px;
+            border: 3px double #1e3a8a;
+            border-radius: 50%;
+            position: absolute;
+            right: 40px;
+            bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e3a8a;
+            font-weight: bold;
+            font-size: 10pt;
+            transform: rotate(-15deg);
+            opacity: 0.2;
+            pointer-events: none;
+        }
 
         .btn-copy {
             background: var(--brand-color);
             color: white;
             border: none;
-            padding: 14px 28px;
+            padding: 16px 32px;
             border-radius: 50px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
             transition: var(--transition);
         }
         .btn-copy:hover { 
             background: var(--brand-hover); 
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
         }
 
         /* --- UTILS --- */
-        .text-accent { color: var(--brand-color); font-weight: bold; }
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .tag-critical { background: #fee2e2; color: #991b1b; }
+        .tag-info { background: #dbeafe; color: #1e40af; }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 1024px) {
-            .content { padding: 40px; margin-left: 260px; }
+            .content { padding: 40px; margin-left: 280px; }
         }
 
         @media (max-width: 768px) {
@@ -365,19 +456,18 @@
                 width: 100%; 
                 height: auto; 
                 position: relative; 
-                padding: 20px;
+                padding: 15px;
                 flex-direction: row;
-                overflow-x: auto;
                 align-items: center;
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             }
-            .sidebar .nav-menu { display: flex; gap: 10px; }
-            .nav-link { margin: 0; white-space: nowrap; }
-            .logo { margin-bottom: 0; margin-right: 20px; font-size: 1.2rem; }
+            .sidebar .nav-menu { display: none; } /* Menú simplificado móvil */
+            .logo { margin-bottom: 0; border: none; padding: 0; }
             .print-btn { display: none; }
             
             .content { margin-left: 0; padding: 20px; }
-            .paper-container { padding: 10px; background: transparent; }
-            .doc-template { padding: 20px; box-shadow: none; border: 1px solid var(--border-color); }
+            .paper-container { padding: 0; background: transparent; border: none; }
+            .doc-template { width: 100%; padding: 20px; box-shadow: none; border: 1px solid var(--border-color); }
         }
 
         @media print {
@@ -388,7 +478,7 @@
             details[open] { border: none; box-shadow: none; }
             details summary { display: none; }
             .detail-content { padding: 0; border: none; }
-            .paper-container { padding: 0; background: none; }
+            .paper-container { padding: 0; background: none; border: none; }
             .doc-template { box-shadow: none; margin: 0; padding: 0; width: 100%; max-width: 100%; }
         }
     </style>
@@ -411,7 +501,7 @@
             <a href="#recursos" class="nav-link">
                 <span>🖥️</span> Recursos Técnicos
             </a>
-            <a href="#modelo" class="nav-link active" style="background: rgba(255,255,255,0.1); color: #fff;">
+            <a href="#modelo" class="nav-link active" style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
                 <span>📝</span> SOLICITUD FORMAL
             </a>
         </div>
@@ -425,39 +515,67 @@
         
         <header class="page-header">
             <h1>Dossier de Autorización: IA y Big Data</h1>
-            <p>Guía estratégica para la tramitación ante la Delegación de Desarrollo Educativo</p>
+            <p>Guía Maestra para la tramitación ante la Delegación de Desarrollo Educativo</p>
         </header>
 
         <!-- SECCIÓN 1: PROCESO Y VISITAS -->
         <section id="proceso">
-            <h2>🗺️ 1. El Proceso de Inspección</h2>
+            <h2>🗺️ 1. El Proceso de Inspección (Detalle Técnico)</h2>
             <div class="info-box">
                 <div>
-                    <strong>Punto Crítico:</strong> El proceso consta de dos filtros físicos y documentales. Es vital coordinar con mantenimiento y secretaría con antelación.
+                    <strong>Objetivo:</strong> Este ciclo es de "Alta Especialización". Las visitas no son rutinarias; se audita la capacidad real del centro para ejecutar modelos de Machine Learning.
                 </div>
             </div>
 
             <details open>
-                <summary>A. Visita Técnica APAE (Infraestructuras)</summary>
+                <summary>A. Visita Técnica APAE (Infraestructuras) <span class="tag tag-info">Filtro 1</span></summary>
                 <div class="detail-content">
-                    <p>La <strong>Agencia Pública Andaluza de Educación</strong> envía un técnico para validar el edificio. No evalúan el proyecto educativo.</p>
+                    <p>El técnico de la Agencia Pública Andaluza de Educación verificará:</p>
                     <ul class="checklist">
-                        <li>📏 <strong>Ratio m²/alumno:</strong> Mínimo 1.5 m² por puesto escolar (aprox 45-60 m² para un aula estándar de 30 alumnos).</li>
-                        <li>🔌 <strong>Red Eléctrica:</strong> Suficientes tomas de corriente y puntos de red para la carga simultánea de equipos de alto rendimiento.</li>
-                        <li>♿ <strong>Accesibilidad Universal:</strong> Rampas normativas, baños adaptados operativos y ascensores con revisión al día.</li>
-                        <li>🧯 <strong>Seguridad:</strong> Plan de autoprotección vigente, señalización de evacuación fotoluminiscente y extintores timbrados.</li>
+                        <li>
+                            <span style="font-size: 1.5rem;">📏</span>
+                            <div>
+                                <strong>Dimensiones del Aula:</strong>
+                                <br><span style="color: #64748b; font-size: 0.9rem;">Normativa: 1.5 m² útiles por alumno. Para un grupo de 20 alumnos, se requieren mínimo 30 m² libres de obstáculos. Se medirán pasillos de evacuación (mínimo 1-1.20m).</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span style="font-size: 1.5rem;">⚡</span>
+                            <div>
+                                <strong>Potencia Eléctrica y Red:</strong>
+                                <br><span style="color: #64748b; font-size: 0.9rem;">El centro debe certificar que la instalación soporta la carga simultánea de 20-30 Workstations con GPUs dedicadas (aprox. 500W-700W por equipo). Se revisarán tomas de tierra y cuadros eléctricos sectorizados.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span style="font-size: 1.5rem;">❄️</span>
+                            <div>
+                                <strong>Climatización:</strong>
+                                <br><span style="color: #64748b; font-size: 0.9rem;">Debido al calor generado por equipos de computación intensiva, se recomienda demostrar capacidad de refrigeración adecuada en el aula técnica.</span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </details>
 
             <details>
-                <summary>B. Visita de Inspección Educativa (Académico)</summary>
+                <summary>B. Auditoría Académica (Inspección) <span class="tag tag-critical">Crítico</span></summary>
                 <div class="detail-content">
-                    <p>Auditoría pedagógica realizada por la Inspectora de zona una vez superada la fase de la APAE.</p>
+                    <p>La Inspectora de Educación revisará la documentación pedagógica y laboral:</p>
                     <ul class="checklist">
-                        <li>📚 <strong>Proyecto Curricular:</strong> Coherencia de la programación didáctica de los módulos.</li>
-                        <li>🧑‍🏫 <strong>Equipo Docente:</strong> Verificación presencial de titulaciones originales y adecuación del perfil (Experiencia IA).</li>
-                        <li>📄 <strong>Expedientes:</strong> Cotejo de contratos laborales y horas lectivas asignadas.</li>
+                        <li>
+                            <span style="font-size: 1.5rem;">🧑‍🏫</span>
+                            <div>
+                                <strong>Cualificación del Profesorado:</strong>
+                                <br><span style="color: #64748b; font-size: 0.9rem;">Se cotejarán los títulos originales (Grado/Ingeniería + Máster Profesorado). <strong>Vital:</strong> Revisión de los CVs para encontrar la "Formación o experiencia específica en IA" exigida.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span style="font-size: 1.5rem;">📚</span>
+                            <div>
+                                <strong>Programación Didáctica:</strong>
+                                <br><span style="color: #64748b; font-size: 0.9rem;">Deben presentarse las guías docentes de los módulos con bibliografía actualizada (no libros de 2010) y uso de herramientas modernas (Python, R, TensorFlow).</span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </details>
@@ -466,33 +584,27 @@
         <!-- SECCIÓN 2: DOCUMENTACIÓN ADMINISTRATIVA -->
         <section id="admin">
             <h2>📂 2. Documentación Administrativa</h2>
-            <p>Archivos digitales requeridos para la presentación en Ventanilla Electrónica.</p>
+            <p>Lista de verificación para el expediente digital en Ventanilla Electrónica.</p>
 
             <h3>A. Copia del BOJA (Autorización Previa)</h3>
-            <p style="color:var(--text-muted); font-size: 0.95rem;">Localizar en el archivo del centro la Orden de autorización de DAM/DAW.</p>
-            <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; font-family: monospace; color: #475569; border: 1px dashed #cbd5e1;">
-                "Orden de [Fecha] por la que se autoriza la apertura y funcionamiento del Centro Docente Privado 'Escuela Arte'..."
+            <p style="color:var(--text-muted); font-size: 0.95rem;">Debe localizarse la Orden exacta. Si no se tiene, solicitar copia a la Delegación.</p>
+            <div style="background: #f8fafc; padding: 15px; border-left: 3px solid #cbd5e1; font-family: monospace; color: #475569;">
+                REF: "Orden de [Fecha] por la que se autoriza al CDP 'Escuela Arte' para impartir Ciclos Formativos de Grado Superior..."
             </div>
 
             <h3>B. Justificación de Acceso (Texto Legal)</h3>
-            <p>Copiar este bloque jurídico en la memoria del proyecto:</p>
-            <div style="padding: 20px; background: white; border: 1px solid var(--border-color); border-left: 4px solid var(--brand-color); border-radius: 4px;">
-                "De conformidad con el <strong>Artículo 13 del Real Decreto 279/2021</strong>, de 20 de abril, el título de Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (Real Decreto 450/2010) y el título de Técnico Superior en Desarrollo de Aplicaciones Web (Real Decreto 686/2010), actualmente autorizados en este centro, constituyen requisitos de acceso directo al Curso de Especialización en Inteligencia Artificial y Big Data."
-            </div>
-
-            <h3>C. Evidencia de Matriculación</h3>
-            <div class="warning-box">
-                <div>
-                    <strong>Protección de Datos (RGPD):</strong> Al presentar listados de alumnos, es obligatorio <strong>anonimizar</strong> cualquier dato personal (Nombres, DNI). Se recomienda un Certificado de Secretaría global (Nº alumnos por grupo).
-                </div>
+            <p>Este texto debe incluirse tal cual en la memoria descriptiva:</p>
+            <div style="padding: 20px; background: white; border: 1px solid var(--border-color); border-radius: 8px;">
+                "De conformidad con lo establecido en el <strong>Artículo 13 del Real Decreto 279/2021</strong>, de 20 de abril, el presente Centro Docente Privado acredita estar autorizado para impartir los títulos de Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (Real Decreto 450/2010) y Técnico Superior en Desarrollo de Aplicaciones Web (Real Decreto 686/2010). Dicha oferta formativa constituye la vía de acceso natural y el requisito habilitante para la implantación del Curso de Especialización en Inteligencia Artificial y Big Data."
             </div>
         </section>
 
         <!-- SECCIÓN 3: RECURSOS TÉCNICOS -->
         <section id="recursos">
-            <h2>🖥️ 3. Recursos e Instalaciones</h2>
-            <p>Especificaciones técnicas recomendadas para evitar objeciones por parte de la Inspección.</p>
+            <h2>🖥️ 3. Recursos Técnicos (Detalle Ampliado)</h2>
+            <p>No basta con "ordenadores". La inspección valorará si se dispone del ecosistema necesario.</p>
 
+            <h3>Hardware (Estaciones de Trabajo)</h3>
             <table>
                 <thead>
                     <tr>
@@ -502,81 +614,128 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Procesador</strong></td>
-                        <td>Intel Core i7 / AMD Ryzen 7 (Mínimo 8 núcleos) para procesos paralelos.</td>
+                        <td><strong>Procesador (CPU)</strong></td>
+                        <td>Intel Core i7/i9 (12ª Gen+) o AMD Ryzen 7/9 (5000+). Mínimo 8 núcleos físicos para virtualización.</td>
                     </tr>
                     <tr>
                         <td><strong>Memoria RAM</strong></td>
-                        <td><strong>16 GB Mínimo</strong> (Ideal 32 GB) para virtualización y manejo de grandes Datasets.</td>
+                        <td><strong>32 GB Recomendado</strong> (16 GB es el mínimo absoluto, pero riesgoso para Big Data).</td>
                     </tr>
                     <tr>
-                        <td><strong>Gráfica (GPU)</strong></td>
-                        <td>NVIDIA RTX 3060/4060 o superior (Indispensable núcleos CUDA para TensorFlow/PyTorch).</td>
+                        <td><strong>GPU (IA)</strong></td>
+                        <td>NVIDIA RTX 3060/4060 (12GB VRAM recomendados). Necesario soporte de núcleos CUDA para Deep Learning.</td>
                     </tr>
                     <tr>
                         <td><strong>Almacenamiento</strong></td>
-                        <td>SSD NVMe 512GB/1TB. La velocidad de lectura es crítica para Big Data.</td>
+                        <td>SSD NVMe 1TB. Velocidad de lectura crítica para carga de Datasets masivos.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Software y Entornos (A incluir en inventario)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%">Categoría</th>
+                        <th>Herramientas a listar en la memoria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Big Data</strong></td>
+                        <td>Apache Hadoop, Apache Spark, MongoDB, Docker (Contenedores).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IA / ML</strong></td>
+                        <td>Python (Anaconda), TensorFlow, Keras, PyTorch, Scikit-learn.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cloud</strong></td>
+                        <td>Acceso a AWS Academy, Azure for Students o Google Cloud (Créditos educativos).</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- SECCIÓN 4: MODELO DE SOLICITUD -->
+        <!-- SECCIÓN 4: MODELO DE SOLICITUD MEJORADO -->
         <section id="modelo">
-            <h2>📝 4. Modelo de Solicitud Formal</h2>
+            <h2>📝 4. Solicitud Formal de Autorización</h2>
             <div class="info-box" style="margin-bottom: 30px;">
-                <div>El siguiente documento incluye <strong>toda la normativa jurídica</strong> exigida. Rellenar los campos entre corchetes <strong>[ ]</strong> antes de firmar.</div>
+                <div><strong>Instrucciones:</strong> Este modelo ha sido redactado con lenguaje administrativo formal. Copiar, rellenar los campos entre corchetes y presentar en papel timbrado del centro o convertir a PDF firmado digitalmente.</div>
             </div>
 
             <div class="paper-container">
                 <div class="doc-template" id="solicitudTexto">
-                    <div class="doc-header">
-                        A LA ATENCIÓN DEL SERVICIO DE PLANIFICACIÓN Y ESCOLARIZACIÓN<br>
-                        DELEGACIÓN DE DESARROLLO EDUCATIVO DE GRANADA
+                    <!-- Cabecera Oficial -->
+                    <div class="official-header">
+                        <!-- Placeholder para Logo Centro -->
+                        <div style="font-weight: bold; font-size: 14pt; color: #1e3a8a;">[LOGO CENTRO]</div> 
+                        <div class="gov-text">
+                            A LA ATENCIÓN DEL SERVICIO DE PLANIFICACIÓN<br>
+                            Y ESCOLARIZACIÓN<br>
+                            DELEGACIÓN DE DESARROLLO EDUCATIVO DE GRANADA
+                        </div>
+                    </div>
+
+                    <div class="doc-ref">
+                        <strong>REF:</strong> SOLICITUD_AUTORIZACIÓN_CE_IA_202X<br>
+                        <strong>ASUNTO:</strong> Solicitud de ampliación de enseñanzas.
                     </div>
 
                     <div class="doc-title">
-                        SOLICITUD DE AUTORIZACIÓN PARA IMPARTIR EL CURSO DE ESPECIALIZACIÓN EN INTELIGENCIA ARTIFICIAL Y BIG DATA
+                        SOLICITUD DE AUTORIZACIÓN ADMINISTRATIVA PARA LA IMPLANTACIÓN DEL CURSO DE ESPECIALIZACIÓN EN INTELIGENCIA ARTIFICIAL Y BIG DATA
                     </div>
 
                     <div class="doc-body">
-                        <p>D./Dña. <strong>[NOMBRE DEL DIRECTOR/TITULAR]</strong>, con DNI <strong>[NÚMERO]</strong>, en calidad de representante legal del Centro Docente Privado <strong>[NOMBRE DEL CENTRO]</strong>, con código de centro <strong>[CÓDIGO]</strong>.</p>
+                        <p>D./Dña. <strong>[NOMBRE DEL DIRECTOR/A]</strong>, con DNI número <strong>[DNI]</strong>, actuando en calidad de representante legal y titular del Centro Docente Privado <strong>[NOMBRE DEL CENTRO]</strong>, con código de centro <strong>[CÓDIGO]</strong> y domicilio a efectos de notificaciones en <strong>[DIRECCIÓN COMPLETA]</strong>.</p>
 
                         <p><strong>EXPONE:</strong></p>
-                        <p>Que el centro cuenta con una sólida trayectoria en la impartición de Formación Profesional de la familia de Informática y Comunicaciones, estando previamente autorizado para los ciclos de DAM/DAW según Orden de <strong>[FECHA BOJA ANTERIOR]</strong>.</p>
-                        <p>Que, con el objetivo de responder a la demanda del tejido productivo y en virtud de nuestro acuerdo estratégico con la <strong>Fundación AI</strong>, solicitamos la ampliación de la oferta educativa.</p>
+                        
+                        <p><strong>PRIMERO.</strong> Que el centro educativo cuenta con una trayectoria consolidada en la impartición de enseñanzas de Formación Profesional de la familia de Informática y Comunicaciones, disponiendo de autorización administrativa vigente para los ciclos de Grado Superior en Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web.</p>
 
-                        <p><strong>FUNDAMENTACIÓN NORMATIVA:</strong></p>
-                        <p>Esta solicitud se ampara en el cumplimiento de lo dispuesto en:</p>
+                        <p><strong>SEGUNDO.</strong> Que, atendiendo a la creciente demanda del tejido productivo local y regional, así como al compromiso estratégico de esta institución con la innovación tecnológica (evidenciado mediante nuestra adhesión a la Fundación AI), consideramos prioritario ampliar nuestra oferta educativa.</p>
+
+                        <p><strong>TERCERO.</strong> Que el centro reúne los requisitos de titulación del profesorado, espacios docentes y equipamiento informático exigidos por la normativa vigente para garantizar la calidad de la enseñanza.</p>
+
+                        <p><strong>FUNDAMENTACIÓN JURÍDICA:</strong></p>
+                        <p>La presente solicitud se ampara en el cumplimiento de lo dispuesto en:</p>
                         <ul>
-                            <li>Ley Orgánica 3/2022, de 31 de marzo, de ordenación e integración de la Formación Profesional.</li>
-                            <li>Real Decreto 279/2021, de 20 de abril, por el que se establece el Curso de especialización en Inteligencia Artificial y Big Data.</li>
-                            <li>Real Decreto 659/2023, de 18 de julio, por el que se desarrolla la ordenación del Sistema de Formación Profesional.</li>
-                            <li>Decreto 109/1992, sobre autorizaciones de Centros Docentes Privados.</li>
+                            <li>La Ley Orgánica 3/2022, de 31 de marzo, de ordenación e integración de la Formación Profesional.</li>
+                            <li>El Real Decreto 279/2021, de 20 de abril, por el que se establece el Curso de especialización en Inteligencia Artificial y Big Data y se fijan los aspectos básicos del currículo.</li>
+                            <li>El Real Decreto 659/2023, de 18 de julio, por el que se desarrolla la ordenación del Sistema de Formación Profesional.</li>
+                            <li>El Decreto 109/1992, de 9 de junio, sobre autorizaciones de Centros Docentes Privados para impartir Enseñanzas de Régimen General.</li>
                         </ul>
 
-                        <p><strong>SE ADJUNTA LA SIGUIENTE DOCUMENTACIÓN ACREDITATIVA:</strong></p>
+                        <p>A tal efecto, se acompaña a este escrito la siguiente <strong>DOCUMENTACIÓN ACREDITATIVA:</strong></p>
                         <ol>
-                            <li><strong>Relación de Profesorado:</strong> Se aporta cuadro docente detallando titulación (Grado/Ingeniería + Máster Profesorado) y <em>Curriculum Vitae</em> con evidencias documentales de experiencia específica en IA y Big Data, tal y como requiere la normativa vigente.</li>
-                            <li><strong>Adecuación de Instalaciones:</strong> Informe de recursos materiales y hardware específico (GPU/RAM) para el correcto desarrollo de los módulos profesionales.</li>
-                            <li><strong>Justificación de Acceso:</strong> Acreditación de alumnado matriculado en los títulos habilitantes (DAM/DAW) conforme al art. 13 del RD 279/2021.</li>
+                            <li>Memoria descriptiva de las instalaciones y equipamiento hardware/software específico para Big Data.</li>
+                            <li>Relación del equipo docente propuesto, adjuntando titulaciones oficiales y <em>Curriculum Vitae</em> acreditativo de la competencia docente y profesional en Inteligencia Artificial.</li>
+                            <li>Documentación justificativa de la matrícula actual en los ciclos formativos que dan acceso a la especialización.</li>
                         </ol>
 
-                        <p>Por todo ello,</p>
+                        <p>Por todo lo expuesto,</p>
 
                         <p><strong>SOLICITA:</strong></p>
-                        <p>Se inicien los trámites oportunos para la autorización administrativa del Curso de Especialización en Inteligencia Artificial y Big Data en nuestro centro para el próximo curso académico.</p>
+                        <p>Que se tenga por presentado este escrito, se admitan los documentos adjuntos y, previos los trámites e informes preceptivos de la Agencia Pública Andaluza de Educación y del Servicio de Inspección Educativa, se dicte Resolución por la que se conceda la <strong>AUTORIZACIÓN ADMINISTRATIVA</strong> para impartir el Curso de Especialización en Inteligencia Artificial y Big Data a partir del próximo curso escolar.</p>
                     </div>
 
                     <div class="doc-footer">
-                        En Granada, a [DÍA] de [MES] de 202X.<br><br><br>
-                        Fdo: El/La Director/a<br>
-                        [SELLO DEL CENTRO]
+                        <p>En Granada, a [DÍA] de [MES] de 202X.</p>
+                        
+                        <div class="signature-box">
+                            <br><br><br>
+                            <span class="signature-label">Fdo: El/La Director/a Titular</span>
+                            
+                            <!-- Sello decorativo CSS -->
+                            <div class="stamp-placeholder">
+                                SELLO<br>REGISTRO<br>CENTRO
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <button class="btn-copy" onclick="copiarTexto()">
-                    📋 Copiar Texto al Portapapeles
+                    📋 Copiar Texto Formal
                 </button>
             </div>
         </section>
