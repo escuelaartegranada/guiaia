@@ -3,243 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestor de Trámite: Especialización IA y Big Data</title>
+    <title>Dossier Maestro: Implantación IA y Big Data</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --secondary: #1e40af;
-            --accent: #f59e0b;
-            --bg: #f3f4f6;
-            --text: #1f2937;
-            --card-bg: #ffffff;
+            --primary: #1e3a8a; /* Azul Institucional */
+            --secondary: #3b82f6;
+            --accent: #f59e0b; /* Dorado para alertas */
+            --bg: #f1f5f9;
+            --text: #334155;
+            --white: #ffffff;
+            --border: #cbd5e1;
         }
 
+        * { box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.6;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* Encabezado */
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
-        }
-
-        header h1 { margin: 0; font-size: 2.5rem; }
-        header p { opacity: 0.9; font-size: 1.1rem; }
-
-        /* Tarjetas */
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--primary);
-        }
-
-        .card.urgent { border-left-color: var(--accent); }
-
-        h2 { color: var(--secondary); margin-top: 0; display: flex; align-items: center; gap: 10px; }
-        
-        /* Listas de verificación */
-        .checklist { list-style: none; padding: 0; }
-        .checklist li {
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px;
+        /* --- NAVEGACIÓN LATERAL (STICKY) --- */
+        .layout {
             display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-        .checklist li:last-child { border-bottom: none; }
-        
-        input[type="checkbox"] {
-            width: 20px; height: 20px; cursor: pointer; margin-top: 4px;
+            min-height: 100vh;
         }
 
-        /* Tabla de Profesorado */
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
-        th { background-color: #f1f5f9; color: var(--secondary); font-weight: 600; }
-        
-        .input-field {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-        }
-
-        /* Pie de página (Normativa) */
-        .legal-footer {
-            background: #e2e8f0;
+        .sidebar {
+            width: 250px;
+            background: var(--primary);
+            color: white;
             padding: 20px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            color: #475569;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
         }
-        .legal-footer h3 { margin-top: 0; }
-        .legal-list { columns: 2; }
+
+        .content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 40px;
+            max-width: 1200px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+        }
+
+        .nav-link {
+            display: block;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 12px;
+            margin-bottom: 5px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* --- SECCIONES DE CONTENIDO --- */
+        section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--bg);
+            padding-bottom: 15px;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 { color: var(--secondary); margin-top: 25px; }
+
+        /* --- CAJAS DE DETALLE (ACCORDION) --- */
+        details {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        details summary {
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            background: #e2e8f0;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        details summary::after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+        details[open] summary::after { content: '-'; }
+
+        .detail-content { padding: 20px; }
+
+        /* --- ESTILOS ESPECÍFICOS --- */
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+
+        .warning-box {
+            background: #fffbeb;
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            color: #92400e;
+        }
+
+        .checklist li { margin-bottom: 10px; display: flex; align-items: start; gap: 10px; }
+        
+        /* --- ESTILO DOCUMENTO OFICIAL --- */
+        .doc-template {
+            font-family: 'Times New Roman', serif;
+            background: #fff;
+            padding: 40px;
+            border: 1px solid #ccc;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            line-height: 1.8;
+            color: black;
+            position: relative;
+        }
+        
+        .doc-header { text-align: right; font-weight: bold; margin-bottom: 30px; }
+        .doc-title { text-align: center; font-weight: bold; text-decoration: underline; margin-bottom: 30px; font-size: 1.2rem; }
+        .doc-body { text-align: justify; }
+        .doc-footer { margin-top: 50px; text-align: center; }
+
+        .btn-copy {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-copy:hover { background: #1e40af; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .layout { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .content { margin-left: 0; padding: 20px; }
+        }
+
+        @media print {
+            .sidebar, .btn-copy, details summary::after { display: none; }
+            .content { margin: 0; padding: 0; }
+            details[open] summary { display: none; }
+            section { page-break-inside: avoid; border: none; box-shadow: none; }
+            .doc-template { border: none; box-shadow: none; padding: 0; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="layout">
+    <!-- MENÚ LATERAL -->
+    <nav class="sidebar">
+        <div class="logo">🏫 Gestión IA</div>
+        <a href="#proceso" class="nav-link">1. Proceso y Visitas</a>
+        <a href="#admin" class="nav-link">2. Documentación Admin</a>
+        <a href="#recursos" class="nav-link">3. Recursos Técnicos</a>
+        <a href="#modelo" class="nav-link active" style="background:var(--accent); color:#1e3a8a;">4. MODELO SOLICITUD</a>
+        <br>
+        <button onclick="window.print()" style="width:100%; padding:10px; background:rgba(255,255,255,0.2); border:none; color:white; cursor:pointer;">🖨️ Imprimir Dossier</button>
+    </nav>
 
-    <header>
-        <h1>🚀 Hoja de Ruta: IA y Big Data</h1>
-        <p>Guía interactiva basada en los requisitos de Inspección</p>
-    </header>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="content">
+        
+        <header style="margin-bottom: 40px;">
+            <h1 style="color:var(--primary); margin:0;">Dossier de Autorización: IA y Big Data</h1>
+            <p style="color:#64748b; font-size:1.1rem;">Guía detallada para Dirección y Administración</p>
+        </header>
 
-    <section class="card">
-        <h2>🏛️ 1. El Trámite Administrativo</h2>
-        <p>Seguir este orden estricto según la inspectora:</p>
-        <ul class="checklist">
-            <li>
-                <input type="checkbox"> 
-                <strong>Paso 1: Solicitud Ventanilla Electrónica</strong>
-                <span>Dirigida al Servicio de Planificación y Escolarización (Granada).</span>
-            </li>
-            <li>
-                <input type="checkbox"> 
-                <strong>Paso 2: Visita APAE</strong>
-                <span>Revisión física de instalaciones (aulas, enchufes, accesibilidad).</span>
-            </li>
-            <li>
-                <input type="checkbox"> 
-                <strong>Paso 3: Visita Inspección</strong>
-                <span>Revisión académica (titulaciones, CVs y documentación).</span>
-            </li>
-        </ul>
-    </section>
+        <!-- SECCIÓN 1: PROCESO Y VISITAS -->
+        <section id="proceso">
+            <h2>🗺️ 1. El Proceso de Inspección (Al detalle)</h2>
+            <div class="info-box">
+                El proceso consta de dos filtros físicos y documentales. Es vital preparar al personal de mantenimiento y secretaría.
+            </div>
 
-    <section class="card urgent">
-        <h2>🧑‍🏫 2. Equipo Docente (Punto Crítico)</h2>
-        <div style="background-color: #fffbeb; padding: 10px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #fcd34d;">
-            <strong>⚠️ Nota de la Inspectora:</strong> No basta con el Grado en Informática. Es <u>obligatorio</u> adjuntar CV que demuestre experiencia o formación específica en IA/Big Data.
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th style="width: 30%;">Módulo Oficial</th>
-                    <th style="width: 35%;">Profesor Asignado</th>
-                    <th style="width: 35%;">Requisitos (Marcar si cumple)</th>
+            <details open>
+                <summary>A. Visita de la APAE (Infraestructuras)</summary>
+                <div class="detail-content">
+                    <p>La <strong>Agencia Pública Andaluza de Educación</strong> envía un técnico. Su función es comprobar la adecuación física del centro.</p>
+                    <ul class="checklist">
+                        <li>📏 <strong>Ratio m²/alumno:</strong> Verificarán que el aula tenga al menos 1.5 m² por puesto escolar autorizado (aprox 45-60 m² para 30 alumnos).</li>
+                        <li>🔌 <strong>Instalación Eléctrica:</strong> Revisarán el cuadro eléctrico y que haya suficientes tomas de corriente y datos para la carga de equipos.</li>
+                        <li>♿ <strong>Accesibilidad:</strong> Existencia de rampas, ascensores y baños adaptados operativos.</li>
+                        <li>🧯 <strong>Seguridad:</strong> Plan de autoprotección al día, extintores revisados y señalización de emergencia visible.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>B. Visita de Inspección (Académico)</summary>
+                <div class="detail-content">
+                    <p>Posterior a la APAE. La inspectora revisará la coherencia pedagógica.</p>
+                    <ul class="checklist">
+                        <li>📚 <strong>Proyecto Curricular:</strong> Cómo se van a impartir los módulos.</li>
+                        <li>🧑‍🏫 <strong>Entrevistas con Docentes:</strong> Podrían solicitar hablar con los profesores propuestos para verificar su idoneidad.</li>
+                        <li>📄 <strong>Expedientes Académicos:</strong> Cotejarán los títulos originales y contratos de los profesores.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- SECCIÓN 2: DOCUMENTACIÓN ADMINISTRATIVA -->
+        <section id="admin">
+            <h2>📂 2. Documentación Administrativa (Preparar PDF)</h2>
+            <p>Estos documentos deben anexarse a la solicitud en ventanilla electrónica.</p>
+
+            <h3>A. Copia del BOJA (Autorización Previa)</h3>
+            <div class="info-box">
+                Debemos localizar la Orden donde se nos autorizó a impartir DAM o DAW.
+                <br><strong>Ejemplo de referencia a buscar:</strong> <em>"Orden de [Fecha] por la que se autoriza la apertura y funcionamiento del Centro Docente Privado 'Escuela Arte'..."</em>
+            </div>
+
+            <h3>B. Justificación de Acceso (Texto Legal Obligatorio)</h3>
+            <p>Incluir este párrafo literal en la memoria para justificar que nuestros alumnos pueden cursar el máster:</p>
+            <div class="doc-template" style="padding: 20px; font-size: 0.9rem; background: #f8fafc; border: 1px dashed #cbd5e1;">
+                "De conformidad con el <strong>Artículo 13 del Real Decreto 279/2021</strong>, de 20 de abril, el título de Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (Real Decreto 450/2010) y el título de Técnico Superior en Desarrollo de Aplicaciones Web (Real Decreto 686/2010), actualmente autorizados en este centro, constituyen requisitos de acceso directo al Curso de Especialización en Inteligencia Artificial y Big Data."
+            </div>
+
+            <h3>C. Evidencia de Matriculación</h3>
+            <div class="warning-box">
+                ⚠️ <strong>Protección de Datos:</strong> Al presentar listados de alumnos actuales para demostrar que el centro tiene actividad, asegúrese de <strong>anonimizar</strong> los datos (ocultar Nombres/DNI parcial) o presentar un <strong>Certificado de Secretaría</strong> que indique únicamente el número de matriculados por grupo, firmado y sellado.
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: RECURSOS TÉCNICOS -->
+        <section id="recursos">
+            <h2>🖥️ 3. Recursos e Instalaciones (Ejemplo Real)</h2>
+            <p>Para IA y Big Data, no valen ordenadores de ofimática. La inspección pide "evidencias". Presentar una factura proforma o inventario con estas características mínimas recomendadas:</p>
+
+            <table style="width:100%; border-collapse:collapse; margin-top:15px;">
+                <tr style="background:#e2e8f0; text-align:left;">
+                    <th style="padding:10px;">Componente</th>
+                    <th style="padding:10px;">Especificación Recomendada (Evidencia)</th>
                 </tr>
-            </thead>
-            <tbody>
                 <tr>
-                    <td><strong>Modelos de Inteligencia Artificial</strong></td>
-                    <td><input type="text" class="input-field" placeholder="Nombre del docente..."></td>
-                    <td>
-                        <label><input type="checkbox"> Título Grado/Ingeniería</label><br>
-                        <label><input type="checkbox"> Máster Profesorado</label><br>
-                        <label><input type="checkbox"> <strong>CV Específico IA</strong></label>
-                    </td>
+                    <td style="padding:10px; border-bottom:1px solid #ccc;"><strong>Procesador</strong></td>
+                    <td style="padding:10px; border-bottom:1px solid #ccc;">Intel Core i7 / AMD Ryzen 7 (Mínimo 8 núcleos) para paralelización.</td>
                 </tr>
                 <tr>
-                    <td><strong>Big Data Aplicado</strong></td>
-                    <td><input type="text" class="input-field" placeholder="Nombre del docente..."></td>
-                    <td>
-                        <label><input type="checkbox"> Título Grado/Ingeniería</label><br>
-                        <label><input type="checkbox"> Máster Profesorado</label><br>
-                        <label><input type="checkbox"> <strong>CV Específico IA</strong></label>
-                    </td>
+                    <td style="padding:10px; border-bottom:1px solid #ccc;"><strong>Memoria RAM</strong></td>
+                    <td style="padding:10px; border-bottom:1px solid #ccc;"><strong>16 GB Mínimo</strong> (Recomendado 32 GB) para virtualización y Datasets grandes.</td>
                 </tr>
                 <tr>
-                    <td><strong>Programación de IA</strong></td>
-                    <td><input type="text" class="input-field" placeholder="Nombre del docente..."></td>
-                    <td>
-                        <label><input type="checkbox"> Título Grado/Ingeniería</label><br>
-                        <label><input type="checkbox"> Máster Profesorado</label><br>
-                        <label><input type="checkbox"> <strong>CV Específico IA</strong></label>
-                    </td>
+                    <td style="padding:10px; border-bottom:1px solid #ccc;"><strong>Gráfica (GPU)</strong></td>
+                    <td style="padding:10px; border-bottom:1px solid #ccc;">NVIDIA RTX 3060/4060 o superior (Necesario soporte CUDA para TensorFlow/PyTorch).</td>
                 </tr>
                 <tr>
-                    <td><strong>Sistemas de Aprendizaje Automático</strong></td>
-                    <td><input type="text" class="input-field" placeholder="Nombre del docente..."></td>
-                    <td>
-                        <label><input type="checkbox"> Título Grado/Ingeniería</label><br>
-                        <label><input type="checkbox"> Máster Profesorado</label><br>
-                        <label><input type="checkbox"> <strong>CV Específico IA</strong></label>
-                    </td>
+                    <td style="padding:10px; border-bottom:1px solid #ccc;"><strong>Almacenamiento</strong></td>
+                    <td style="padding:10px; border-bottom:1px solid #ccc;">SSD NVMe 512GB/1TB (Velocidad de lectura/escritura crítica para Big Data).</td>
                 </tr>
-                <tr>
-                    <td><strong>Sistemas de Big Data</strong></td>
-                    <td><input type="text" class="input-field" placeholder="Nombre del docente..."></td>
-                    <td>
-                        <label><input type="checkbox"> Título Grado/Ingeniería</label><br>
-                        <label><input type="checkbox"> Máster Profesorado</label><br>
-                        <label><input type="checkbox"> <strong>CV Específico IA</strong></label>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+            </table>
+        </section>
 
-    <section class="card">
-        <h2>📂 3. Documentación Administrativa</h2>
-        <ul class="checklist">
-            <li>
-                <input type="checkbox">
-                <strong>Copia del BOJA (Autorización previa)</strong>
-                <span>Documento donde se autorizó DAM/DAW al centro.</span>
-            </li>
-            <li>
-                <input type="checkbox">
-                <strong>Justificación de Acceso</strong>
-                <span>Citar el <em>Art. 13 del Real Decreto 279/2021</em> (Habilita a alumnos de DAM/DAW a entrar aquí).</span>
-            </li>
-            <li>
-                <input type="checkbox">
-                <strong>Evidencia de Matriculación</strong>
-                <span>Listados anónimos que demuestren que el centro ya tiene alumnos de informática.</span>
-            </li>
-        </ul>
-    </section>
+        <!-- SECCIÓN 4: MODELO DE SOLICITUD -->
+        <section id="modelo">
+            <h2>📝 4. MODELO DE SOLICITUD FORMAL</h2>
+            <div class="warning-box">
+                Este texto incluye <strong>toda la normativa</strong> exigida por la inspectora. Solo hay que rellenar los huecos entre corchetes <strong>[ ]</strong>.
+            </div>
 
-    <section class="card">
-        <h2>🖥️ 4. Recursos e Instalaciones</h2>
-        <ul class="checklist">
-            <li>
-                <input type="checkbox">
-                <strong>Inventario Hardware</strong>
-                <span>PCs con capacidad para procesar Big Data.</span>
-            </li>
-            <li>
-                <input type="checkbox">
-                <strong>Software</strong>
-                <span>Licencias o herramientas instaladas (Python, TensorFlow, etc.).</span>
-            </li>
-        </ul>
-    </section>
+            <div class="doc-template" id="solicitudTexto">
+                <div class="doc-header">
+                    A LA ATENCIÓN DEL SERVICIO DE PLANIFICACIÓN Y ESCOLARIZACIÓN<br>
+                    DELEGACIÓN DE DESARROLLO EDUCATIVO DE GRANADA
+                </div>
 
-    <footer class="legal-footer">
-        <h3>⚖️ Anexo: Marco Normativo (Incluir en la Memoria)</h3>
-        <div class="legal-list">
-            <p>• Ley Orgánica 3/2022 (FP)</p>
-            <p>• Real Decreto 279/2021 (Curso Esp. IA y Big Data)</p>
-            <p>• Real Decreto 659/2023 (Ordenación FP)</p>
-            <p>• Decreto 436/2008 (FP en Andalucía)</p>
-            <p>• Orden ECI/3858/2007 (Requisitos profesorado)</p>
-            <p>• Ley Orgánica 2/2006 (Educación)</p>
-        </div>
-    </footer>
+                <div class="doc-title">
+                    SOLICITUD DE AUTORIZACIÓN PARA IMPARTIR EL CURSO DE ESPECIALIZACIÓN EN INTELIGENCIA ARTIFICIAL Y BIG DATA
+                </div>
 
+                <div class="doc-body">
+                    <p>D./Dña. <strong>[NOMBRE DEL DIRECTOR/TITULAR]</strong>, con DNI <strong>[NÚMERO]</strong>, en calidad de representante legal del Centro Docente Privado <strong>[NOMBRE DEL CENTRO]</strong>, con código de centro <strong>[CÓDIGO]</strong>.</p>
+
+                    <p><strong>EXPONE:</strong></p>
+                    <p>Que el centro cuenta con una sólida trayectoria en la impartición de Formación Profesional de la familia de Informática y Comunicaciones, estando previamente autorizado para los ciclos de DAM/DAW según Orden de <strong>[FECHA BOJA ANTERIOR]</strong>.</p>
+                    <p>Que, con el objetivo de responder a la demanda del tejido productivo y en virtud de nuestro acuerdo estratégico con la <strong>Fundación AI</strong>, solicitamos la ampliación de la oferta educativa.</p>
+
+                    <p><strong>FUNDAMENTACIÓN NORMATIVA:</strong></p>
+                    <p>Esta solicitud se ampara en el cumplimiento de lo dispuesto en:</p>
+                    <ul>
+                        <li>Ley Orgánica 3/2022, de 31 de marzo, de ordenación e integración de la Formación Profesional.</li>
+                        <li>Real Decreto 279/2021, de 20 de abril, por el que se establece el Curso de especialización en Inteligencia Artificial y Big Data.</li>
+                        <li>Real Decreto 659/2023, de 18 de julio, por el que se desarrolla la ordenación del Sistema de Formación Profesional.</li>
+                        <li>Decreto 109/1992, sobre autorizaciones de Centros Docentes Privados.</li>
+                    </ul>
+
+                    <p><strong>SE ADJUNTA LA SIGUIENTE DOCUMENTACIÓN ACREDITATIVA:</strong></p>
+                    <ol>
+                        <li><strong>Relación de Profesorado:</strong> Se aporta cuadro docente detallando titulación (Grado/Ingeniería + Máster Profesorado) y <em>Curriculum Vitae</em> con evidencias documentales de experiencia específica en IA y Big Data, tal y como requiere la normativa vigente.</li>
+                        <li><strong>Adecuación de Instalaciones:</strong> Informe de recursos materiales y hardware específico (GPU/RAM) para el correcto desarrollo de los módulos profesionales.</li>
+                        <li><strong>Justificación de Acceso:</strong> Acreditación de alumnado matriculado en los títulos habilitantes (DAM/DAW) conforme al art. 13 del RD 279/2021.</li>
+                    </ol>
+
+                    <p>Por todo ello,</p>
+
+                    <p><strong>SOLICITA:</strong></p>
+                    <p>Se inicien los trámites oportunos para la autorización administrativa del Curso de Especialización en Inteligencia Artificial y Big Data en nuestro centro para el próximo curso académico.</p>
+                </div>
+
+                <div class="doc-footer">
+                    En Granada, a [DÍA] de [MES] de 202X.<br><br><br>
+                    Fdo: El/La Director/a<br>
+                    [SELLO DEL CENTRO]
+                </div>
+            </div>
+
+            <button class="btn-copy" onclick="copiarTexto()">
+                📋 Copiar Texto de la Solicitud
+            </button>
+        </section>
+
+    </main>
 </div>
+
+<script>
+    function copiarTexto() {
+        const texto = document.getElementById('solicitudTexto').innerText;
+        navigator.clipboard.writeText(texto).then(() => {
+            alert('Texto copiado al portapapeles. Ahora puedes pegarlo en Word.');
+        });
+    }
+</script>
 
 </body>
 </html>
